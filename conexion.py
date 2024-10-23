@@ -1,16 +1,29 @@
-class conexion:
-    DATABASE='nombreDatabase'
-    USERNAME='root'
+import pyodbc
+
+
+
+class Conexion:
+    DATABASE='bdprueba'
+    USERNAME='admin'
     PASSWORD='admin'
-    DB_PORT='4300'
-    HOST='localhost'
+    DB_PORT='1433'
+    SERVER='localhost'
     POOL_SIZE=5
     POOL_NAME='nombre_pool'
     pool=None
 
     @classmethod
-    def get_pool(cls):
-        if cls.pool is None:
+    def get_conn(cls):
+        if cls.pool is not None:
+            return cls.pool
+        else:
             try:
-                cls.pool=pooling
+                connectionString = f'DRIVER={{SQL Server Native Client 11.0}};SERVER={cls.SERVER};DATABASE={cls.DATABASE};UID={cls.USERNAME};PWD={cls.PASSWORD}'
+                cls.pool = pyodbc.connect(connectionString)
+            ##    print(f'entro por aqui{cursor}')
+                return cls.pool
             except:
+                return f'error en conexion'
+
+pool=Conexion.get_conn().cursor()
+print(pool)
