@@ -25,5 +25,5 @@ class Conexion:
             except:
                 return f'error en conexion'
 
-pool=Conexion.get_conn().cursor()
-print(pool)
+#pool=Conexion.get_conn().cursor()
+#print(pool)
