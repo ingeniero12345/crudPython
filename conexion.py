@@ -25,5 +25,9 @@ class Conexion:
             except:
                 return f'error en conexion'
 
+    @classmethod
+    def liberar_conexion(cls, conexion):
+        conexion.close()
+
 #pool=Conexion.get_conn().cursor()
 #print(pool)

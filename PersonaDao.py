@@ -6,6 +6,7 @@ class PersonaDao:
     @classmethod
     def mostrar_personas(cls):
         conexion=None
+        cursor=None
         try:
             conexion=Conexion.get_conn()
             cursor=conexion.cursor()
@@ -20,8 +21,11 @@ class PersonaDao:
             print(f'Hay problemas de conexión: {e}')
         finally:
             if conexion is not None:
-                conexion.close()
+                if cursor is not None:
+                    cursor.close()
+            #    Conexion.liberar_conexion(conexion)
 
-personas=PersonaDao.mostrar_personas()
-for persona in personas:
-    print(persona)
+# if __name__ == '__main__':
+#     personas=PersonaDao.mostrar_personas()
+#     for persona in personas:
+#         print(persona)
